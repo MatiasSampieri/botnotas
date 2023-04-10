@@ -13,3 +13,10 @@ Bot de telegram para chequear si subieron una nueva nota a Autogestion 4
 - `/setfrec <minutos>`  Cambia la frecuencia de chequeo de notas al valor pasado como argumento
 
 ## Instalación
+
+1. Instalar Node.js
+2. Ejecutar `npx tsc` detro del directorio del proyecto
+3. Ejecutar el bot por primera vez con `node ./build/main.js`
+4. Completar el archivo `config.json` con los datos que se piden
+5. Ejecutar de nuevo el bot (`node ./build/main.js`)
+6. Listo
