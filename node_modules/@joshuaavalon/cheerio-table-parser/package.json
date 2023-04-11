@@ -1,0 +1,48 @@
+{
+  "name": "@joshuaavalon/cheerio-table-parser",
+  "version": "2.0.3",
+  "description": "Parsing table element of Cheerio into 2D array.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --ext .ts src",
+    "prebuild": "rimraf lib",
+    "build": "tsc",
+    "remove:test": "rimraf lib/**/*.spec.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/joshua-avalon/cheerio-table-parser.git"
+  },
+  "keywords": [
+    "cheerio",
+    "table",
+    "htmlparser"
+  ],
+  "files": [
+    "lib"
+  ],
+  "author": "Joshua Avalon",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@joshuaavalon/eslint-config-typescript": "^4.1.4",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/gitlab": "^6.0.5",
+    "@types/jest": "^26.0.20",
+    "@types/lodash": "^4.14.161",
+    "@types/node": "^14.14.20",
+    "eslint": "^7.10.0",
+    "eslint-plugin-jest": "^24.0.2",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.1.2",
+    "typescript": "^4.0.3"
+  }
+}
