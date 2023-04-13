@@ -15,8 +15,9 @@ Bot de telegram para chequear si subieron una nueva nota a Autogestion 4
 ## Instalación
 
 1. Instalar Node.js
-2. Ejecutar `npx tsc` detro del directorio del proyecto
-3. Ejecutar el bot por primera vez con `node ./build/main.js`
-4. Completar el archivo `config.json` con los datos que se piden
-5. Ejecutar de nuevo el bot (`node ./build/main.js`)
-6. Listo
+2. Ejecutar `npm install` detro del directorio del proyecto 
+3. Ejecutar `npx tsc` detro del directorio del proyecto
+4. Ejecutar el bot por primera vez con `node ./build/main.js`
+5. Completar el archivo `config.json` con los datos que se piden
+6. Ejecutar de nuevo el bot (`node ./build/main.js`)
+7. Listo
