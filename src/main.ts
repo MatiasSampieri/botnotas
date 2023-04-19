@@ -6,7 +6,6 @@ import { Telegraf } from 'telegraf';
 import * as cheerio from 'cheerio';
 import table_parse from 'cheerio-tableparser';
 import { setIntervalAsync, SetIntervalAsyncTimer, clearIntervalAsync } from 'set-interval-async';
-//import { clearIntervalAsync } from 'set-interval-async/dist/clear-interval-async.cjs';
 
 
 interface Config {
@@ -314,7 +313,14 @@ async function main() {
     bot_telegram.command('start', ctx => {
         if (!running) {
             running = true;
-            bot_task = setIntervalAsync(bot.check_and_update_notas, bot.get_frecuencia());
+            bot_task = setIntervalAsync(async () => {
+                try {
+                    await bot.check_and_update_notas();
+                } catch (e) {
+                    console.error(e);
+                }
+            }, bot.get_frecuencia());
+            
             ctx.reply('Bot reactivado');
         } else {
             ctx.reply('El bot ya esta funcionando');
