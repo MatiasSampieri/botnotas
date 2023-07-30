@@ -235,21 +235,28 @@ class Botnotas {
         const new_notas: Materia[] = new Array();
 
         for (const materia of this.materias) {
-            const item_materia = await autogestion.waitForSelector(`#${materia.id}`);
-            await item_materia?.$eval('i.fa-list-ol', btn => btn.click());  // abrir panel de notas  
-            await autogestion.waitForNetworkIdle({timeout: 5000});
+            this.log(`Checkeando: ${materia.name}`);
 
-            const selector_tabla_notas = await autogestion.waitForSelector(`#${materia.id.replace('idCurso', 'tabla')}`); 
-            await autogestion.waitForSelector(`#${materia.id.replace('idCurso', 'tabla')} > tbody > tr`);
-            await autogestion.waitForTimeout(1500); // como para asegurarse, a veces le cuesta un poco a A4  
+            try {
+                const item_materia = await autogestion.waitForSelector(`#${materia.id}`);
+                await item_materia?.$eval('i.fa-list-ol', btn => btn.click());  // abrir panel de notas  
+                await autogestion.waitForNetworkIdle({timeout: 5000});
+                await autogestion.waitForTimeout(2500);
 
-            const html_tabla_notas = await autogestion.evaluate(tabla => tabla.outerHTML, selector_tabla_notas);
-            const tabla_notas = cheerio.load(html_tabla_notas); 
-            table_parse(tabla_notas);
+                const selector_tabla_notas = await autogestion.waitForSelector(`#${materia.id.replace('idCurso', 'tabla')}`); 
+                await autogestion.waitForSelector(`#${materia.id.replace('idCurso', 'tabla')} > tbody > tr`);
+                await autogestion.waitForTimeout(2500); // como para asegurarse, a veces le cuesta un poco a A4  
 
-            const new_mat = { ...materia };
-            new_mat.notas = ((tabla_notas('table > tbody') as any).parsetable(true, true, true)).map((e: Array<string>) => e[0]);
-            new_notas.push(new_mat);
+                const html_tabla_notas = await autogestion.evaluate(tabla => tabla.outerHTML, selector_tabla_notas);
+                const tabla_notas = cheerio.load(html_tabla_notas); 
+                table_parse(tabla_notas);
+
+                const new_mat = { ...materia };
+                new_mat.notas = ((tabla_notas('table > tbody') as any).parsetable(true, true, true)).map((e: Array<string>) => e[0]);
+                new_notas.push(new_mat);
+            } catch (e) {
+                this.log((e as Error).message);
+            }
         }
 
         this.log('Notas obtenidas!');
@@ -272,7 +279,6 @@ class Botnotas {
             }
         }
         
-
         if (materias_cambiadas.length > 0) {
             this.materias = new_notas;
             fs.writeFile('materias.json', JSON.stringify(this.materias, null, 4), e => {if (e) return console.error(e)})
@@ -319,6 +325,7 @@ async function main() {
                 } catch (e) {
                     console.error(e);
                 }
+                return;
             }, bot.get_frecuencia());
             
             ctx.reply('Bot reactivado');
