@@ -22,6 +22,7 @@
     "telegraf": "^4.12.2"
   },
   "dependencies": {
+    "random-useragent": "^0.5.0",
     "set-interval-async": "^3.0.3",
     "typescript": "^5.1.6"
   }
